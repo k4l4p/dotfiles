@@ -1,0 +1,4 @@
+cd /tmp
+new_os_window
+cd /tmp
+launch nvim a.c

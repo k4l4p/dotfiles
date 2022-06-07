@@ -1,0 +1,258 @@
+[colors]
+zero = ${xrdb:color0:#222}
+one = ${xrdb:color1:#222}
+two = ${xrdb:color2:#222}
+three = ${xrdb:color3:#222}
+four = ${xrdb:color4:#222}
+five = ${xrdb:color5:#222}
+six = ${xrdb:color6:#222}
+seven = ${xrdb:color7:#222}
+eight = ${xrdb:color8:#222}
+nine = ${xrdb:color9:#222}
+ten = ${xrdb:color10:#222}
+eleven = ${xrdb:color11:#222}
+twelve = ${xrdb:color12:#222}
+thirteen = ${xrdb:color13:#222}
+fourteen = ${xrdb:color14:#222}
+fifteen = ${xrdb:color15:#222}
+
+
+
+
+;;;;;; TOP BAR ;;;;;
+
+[bar/bar]
+background = #00000000
+foreground = ${colors.zero}
+
+width                    = 1920
+height                   = 40
+radius                   = 0
+line-size                = 1
+bottom                   = false
+border-bottom-size       = 0
+padding-left             = 3
+padding-right            = 3
+
+fixed-center = true
+font-1 = "Typicons:size=13;1"
+font-2 = "]\-v2:style=v2:size=11;3"
+
+font-0 = "JetBrainsMono Nerd Font Mono:style=Regular:size=11;2"
+font-3 = "JetBrainsMono Nerd Font Mono:style=Bold:size=11;2"
+font-4 = "SauceCodePro Nerd Font Mono:style=Regular:size=13;2"
+
+wm-restack = bspwm
+
+modules-left = wm
+modules-center = time
+modules-right = eth pulseaudio battery
+module-margin = 2
+
+tray-position = none
+tray-maxsize = 0
+tray-detached = true
+tray-padding = 0
+tray-scale = 0.0
+tray-background = #3d3c3b
+
+
+
+override-redirect = true
+offset-x = 0
+offset-y = 0
+
+padding = 0
+
+wm-name = bar
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/wm]
+type = internal/bspwm
+
+enable-click = true
+enable-scroll = true
+format-padding = 1
+ 
+ws-icon-0 = I;
+ws-icon-1 = II;
+ws-icon-2 = III;
+ws-icon-3 = IV;
+ws-icon-4 = V;
+
+ 
+icon-default = 
+ 
+format = <label-state>
+
+label-focused = 
+label-occupied = 
+label-urgent = 
+label-empty = 
+ 
+label-empty-padding = 1
+label-focused-padding = 1
+label-urgent-padding = 1
+label-occupied-padding = 1
+ 
+label-empty-foreground = ${colors.zero}
+label-focused-foreground = ${colors.four}
+label-urgent-foreground = ${colors.six}
+label-occupied-foreground = ${colors.zero}
+
+
+
+[module/xbacklight]
+type = internal/xbacklight
+enable-scroll = true
+
+format = <ramp> <label>
+
+ramp-font = 4
+ramp-0 = " L "
+ramp-0-foreground = ${colors.three}
+
+label = %percentage%%
+
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = %{A1:kitty -e gotop &:}<animation-charging> <label-charging>%{A}
+label-charging = +%percentage%%
+
+format-discharging = %{A1:kitty -e gotop &:}<ramp-capacity> <label-discharging>%{A}
+label-discharging = %percentage%%
+
+format-full = %{A1:kitty -e gotop &:}<ramp-capacity> <label-full>%{A1:kitty -e gotop &:}
+label-full = " Full "
+
+
+ramp-capacity-foreground = ${colors.four}
+ramp-capacity-0-foreground = ${colors.five}
+ramp-capacity-1-foreground = ${colors.six}
+ramp-capacity-2-foreground = ${colors.seven}
+
+ramp-capacity-font = 4
+
+ramp-capacity-0 = " B "
+ramp-capacity-1 = " B "
+ramp-capacity-2 = " B "
+ramp-capacity-3 = " B "
+ramp-capacity-4 = " B "
+ramp-capacity-5 = " B "
+ramp-capacity-6 = " B "
+ramp-capacity-7 = " B "
+ramp-capacity-8 = " B "
+ramp-capacity-9 = " B "
+
+
+animation-charging-font = 4
+
+animation-charging-0 = " B    "
+animation-charging-1 = " B.   "
+animation-charging-2 = " B..  "
+animation-charging-3 = " B... "
+
+animation-charging-foreground = ${colors.four}
+
+animation-charging-framerate = 500
+
+
+
+[module/time]
+type = internal/date
+interval = 5
+time = "%H:%M"
+date = "%a %d %b"
+label-foreground=${colors.zero}
+label = %date%, %time%
+
+
+
+[module/pulseaudio]
+module-margin = 0
+type = internal/pulseaudio
+label-active-font = 2
+format-volume = <ramp-volume> <label-volume>
+format-muted =  <label-muted> Muted
+
+ramp-volume-font = 4
+label-muted-font = 4
+
+ramp-volume-0 = " V "
+label-muted = " M "
+
+ramp-volume-foreground = ${colors.seven}
+label-muted-foreground = ${colors.four}
+
+[module/poweroff]
+type = custom/script
+label-active-font = 2
+exec = echo "  "
+click-left = rofi -modi run,drun,window -show drun
+click-right = i3lock-fancy -pg &
+click-middle = /usr/bin/rofi-logout
+format-padding = 1
+
+
+[module/eth]
+type = internal/network
+label-active-font = 2
+interface = wlp3s0
+interval = 3.0
+
+
+format-connected = <label-connected>
+format-connected-prefix = "N  "
+format-connected-prefix-foreground = ${colors.five}
+format-connected-prefix-font = 2
+
+label-connected = %{A1:networkmanager_dmenu:}%{T5} %{T-}%essid% %{A}
+
+format-disconnected-prefix = "N  "
+format-disconnected-prefix-foreground = ${colors.red1}
+format-disconnected-prefix-font = 2
+format-disconnected = <label-disconnected>
+label-disconnected = %{A1:networkmanager_dmenu:}%{T5} %{T-}Not connected %{A}
+
+format-padding = 0
+
+[module/bluetooth]
+format-label-margin = 0
+type = custom/script
+
+exec = $HOME/.dotfiles/bt-2
+
+tail = true
+interval = 2
+
+label = %{A3:kitty -e bluetoothctl &:}%output%%{A}
+
+
+
+[module/cpu]
+type = internal/cpu
+
+interval = 0.5
+
+format = <ramp-load>   <label>
+
+label = %percentage%%
+
+ramp-load-0 = %{T3}  %{T2}C
+ramp-load-font = 2
+ramp-load-0-foreground = ${colors.blue1}
+
+
+[module/spotify]
+type = custom/script
+interval = 1
+format = <label>
+exec = python $HOME/.dotfiles/spotify_status.py -p "%{T3}                  %{T-},%{T3}                  %{T-}" -f "{play_pause} {artist} - {song}" -t 100
+

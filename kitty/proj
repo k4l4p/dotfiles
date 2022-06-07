@@ -1,0 +1,7 @@
+layout fat
+title code
+launch zsh -c 'nvim .'
+title terminal1
+launch zsh
+title terminal2
+launch zsh
